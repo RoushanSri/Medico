@@ -28,11 +28,11 @@ export function AppointmentCard({ date, doctor, type, time }: AppointmentCardPro
       </div>
       <div onClick={handleAdd} id='option' className={`hover:bg-slate-50 p-3 rounded-full duration-500`}>
       <SlOptionsVertical/>
-      <div className={`absolute bg-blue-50 bg-opacity-80 text-white p-2 rounded-xl`}>
+      {/* <div className={`absolute bg-blue-50 bg-opacity-80 text-white p-2 rounded-xl`}>
         <h5 className='text-green-400 font-semibold my-1'>Done</h5>
         <h5 className='text-orange-400 font-semibold my-1'>Reschedule</h5>
         <h5 className='text-red-600 font-semibold my-1'>Cancel</h5>
-      </div>
+      </div> */}
       </div>
 
     </div>
