@@ -24,6 +24,18 @@ export function PatientDashboard() {
 
   const [selectedMedication, setSelectedMedication] = useState<any>(null);
 
+  const handleReschedule = (index: number, newDate: string, newTime: string) => {
+    setAppointments((prevAppointments) => {
+      const updatedAppointments = [...prevAppointments];
+      updatedAppointments[index] = {
+        ...updatedAppointments[index],
+        date: newDate,
+        time: newTime,
+      };
+      return updatedAppointments;
+    });
+  };
+
   const medications = [
     { name: 'Lisinopril', dosage: '10mg', frequency: 'Once daily', time: 'Morning' },
     { name: 'Metformin', dosage: '500mg', frequency: 'Twice daily', time: 'Morning/Evening' },
@@ -66,6 +78,14 @@ export function PatientDashboard() {
     setAppointments((prevAppointments) => prevAppointments.filter((_, i) => i !== index));
   };
 
+  const handleAddMedication = (data: any) => {
+    console.log('Adding medication:', data);
+  };
+  const handleUpdateMedication = (data: any) => {
+    console.log('Updating medication:', data);
+    setSelectedMedication(null);
+  };
+
   const renderTabContent = () => {
     switch (activeTab) {
       case 'overview':
@@ -92,6 +112,7 @@ export function PatientDashboard() {
                     type={appointment.type}
                     time={appointment.time}
                     onRemove={() => removeAppointment(index)}
+                    onReschedule={(newDate, newTime) => handleReschedule(index, newDate, newTime)}
                   />
                 ))}
                 <button
@@ -191,23 +212,29 @@ export function PatientDashboard() {
             </div>
           </div>
         );
-      case 'medications':
-        return (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <MedicationForm type="add" onSubmit={() => {}} />
-              <MedicationForm type="update" onSubmit={() => {}} />
-            </div>
-            <div className="bg-white rounded-xl p-6 shadow-sm">
-              <h2 className="text-xl font-bold text-gray-900 mb-6">Current Medications</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {medications.map((med, index) => (
-                  <MedicationCard key={index} {...med} />
-                ))}
+        case 'medications':
+          return (
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <MedicationForm type="add" onSubmit={handleAddMedication} />
+                <MedicationForm 
+                  type="update" 
+                  onSubmit={handleUpdateMedication}
+                  defaultValues={selectedMedication}
+                />
+              </div>
+              <div className="bg-white rounded-xl p-6 shadow-sm">
+                <h2 className="text-xl font-bold text-gray-900 mb-6">Current Medications</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {medications.map((med, index) => (
+                    <div key={index} onClick={() => setSelectedMedication(med)} className="cursor-pointer">
+                      <MedicationCard {...med} />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        );
+          );
       case 'reports':
         return <ReportsTab />;
       default:

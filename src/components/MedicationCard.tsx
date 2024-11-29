@@ -1,13 +1,10 @@
-import React from 'react';
 import { Pill, Clock } from 'lucide-react';
-
 interface MedicationCardProps {
   name: string;
   dosage: string;
   frequency: string;
   time: string;
 }
-
 export function MedicationCard({ name, dosage, frequency, time }: MedicationCardProps) {
   return (
     <div className="p-4 border border-gray-100 rounded-lg">

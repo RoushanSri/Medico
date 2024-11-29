@@ -1,6 +1,5 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
-
 interface MedicationFormProps {
   type: 'add' | 'update';
   onSubmit: (data: any) => void;
@@ -11,7 +10,6 @@ interface MedicationFormProps {
     time: string;
   };
 }
-
 export function MedicationForm({ type, onSubmit, defaultValues }: MedicationFormProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +18,6 @@ export function MedicationForm({ type, onSubmit, defaultValues }: MedicationForm
     onSubmit(data);
     (e.target as HTMLFormElement).reset();
   };
-
   return (
     <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-sm">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">
