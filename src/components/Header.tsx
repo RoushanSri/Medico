@@ -1,4 +1,3 @@
-import React from 'react';
 import { Bell, User, Search } from 'lucide-react';
 import img from '../../Public/Screenshot 2024-11-21 160510_processed.png'
 

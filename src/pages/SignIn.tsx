@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { User, Lock, Stethoscope } from 'lucide-react';
-import img from "../../Public/Screenshot 2024-11-21 160510_processed.png"
+import img from "../../Public/Screenshot 2024-11-21 160510_processed.png";
 
 export default function SignIn() {
   const [userType, setUserType] = useState<'patient' | 'doctor'>('patient');
+  const [password, setPassword] = useState('');
+  const [usernames, setUsernames] = useState('');
   const navigate = useNavigate();
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // In a real app, you would validate credentials here
@@ -65,6 +66,8 @@ export default function SignIn() {
                   id="id"
                   name="id"
                   type="text"
+                  onChange={(e)=>setUsernames(e.target.value)}
+                  value={usernames}
                   required
                   placeholder={userType === 'patient' ? 'P-XXXXXXXX' : 'D-XXXXXXXX'}
                   className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
@@ -84,6 +87,8 @@ export default function SignIn() {
                   id="password"
                   name="password"
                   type="password"
+                  onChange={(e)=>setPassword(e.target.value)}
+                  value={password}
                   required
                   className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
