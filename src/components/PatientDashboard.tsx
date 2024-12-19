@@ -10,9 +10,9 @@ import { ReportsTab } from './ReportsTab';
 export function PatientDashboard() {
   const [activeTab, setActiveTab] = useState<'overview' | 'records' | 'medications' | 'reports'>('overview');
   const [appointments, setAppointments] = useState([
-    { date: '2024-11-30', doctor: 'Dr. Seema Goyal', type: 'Checkup', time: '10:00 AM' },
-    { date: '2024-12-01', doctor: 'Dr. Nishu Gupta', type: 'Cardiology', time: '2:00 PM' },
-    { date: '2024-12-02', doctor: 'Dr. Amit Sharma', type: 'Gynecology', time: '4:00 PM' },
+    { date: '2024-11-30', doctor: 'Dr. Seema Goyal', type: 'Checkup', time: '10:00 AM', state: 'Delhi' },
+    { date: '2024-12-01', doctor: 'Dr. Nishu Gupta', type: 'Cardiology', time: '2:00 PM', state: 'Uttrakhand' },
+    { date: '2024-12-02', doctor: 'Dr. Amit Sharma', type: 'Gynecology', time: '4:00 PM', state: 'Uttar Pradesh' },
   ]);
   const [showAddAppointmentForm, setShowAddAppointmentForm] = useState(false);
   const [newAppointment, setNewAppointment] = useState({
@@ -20,6 +20,7 @@ export function PatientDashboard() {
     doctor: '',
     type: '',
     time: '',
+    state: ''
   });
 
   const [selectedMedication, setSelectedMedication] = useState<any>(null);
@@ -67,10 +68,15 @@ export function PatientDashboard() {
   ];
 
   const handleAddAppointment = () => {
-    if (newAppointment.date && newAppointment.doctor && newAppointment.type && newAppointment.time) {
+    if (newAppointment.date && newAppointment.doctor && newAppointment.type && newAppointment.time && newAppointment.state) {
       setAppointments([...appointments, newAppointment]);
       setShowAddAppointmentForm(false);
-      setNewAppointment({ date: '', doctor: '', type: '', time: '' }); 
+      console.log(newAppointment);
+      
+      setNewAppointment({ date: '', doctor: '', type: '', time: '' ,state: ''}); 
+    }
+    else{
+      alert('Please fill all fields');
     }
   };
 
@@ -146,6 +152,45 @@ export function PatientDashboard() {
               value={newAppointment.type}
               onChange={(e) => setNewAppointment({ ...newAppointment, type: e.target.value })}
             />
+        <select id="states" name="states" value={newAppointment.state} onChange={(e)=>setNewAppointment({...newAppointment, state: e.target.value})}>
+        <option value="all">-----Select State-----</option>
+        <option value="Andhra Pradesh">Andhra Pradesh</option>
+        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+        <option value="Assam">Assam</option>
+        <option value="Bihar">Bihar</option>
+        <option value="Chhattisgarh">Chhattisgarh</option>
+        <option value="Goa">Goa</option>
+        <option value="Gujarat">Gujarat</option>
+        <option value="Haryana">Haryana</option>
+        <option value="Himachal Pradesh">Himachal Pradesh</option>
+        <option value="Jharkhand">Jharkhand</option>
+        <option value="Karnataka">Karnataka</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Madhya Pradesh">Madhya Pradesh</option>
+        <option value="Maharashtra">Maharashtra</option>
+        <option value="Manipur">Manipur</option>
+        <option value="Meghalaya">Meghalaya</option>
+        <option value="Mizoram">Mizoram</option>
+        <option value="Nagaland">Nagaland</option>
+        <option value="Odisha">Odisha</option>
+        <option value="Punjab">Punjab</option>
+        <option value="Rajasthan">Rajasthan</option>
+        <option value="Sikkim">Sikkim</option>
+        <option value="Tamil Nadu">Tamil Nadu</option>
+        <option value="Telangana">Telangana</option>
+        <option value="Tripura">Tripura</option>
+        <option value="Uttar Pradesh">Uttar Pradesh</option>
+        <option value="Uttarakhand">Uttarakhand</option>
+        <option value="West Bengal">West Bengal</option>
+        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+        <option value="Chandigarh">Chandigarh</option>
+        <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+        <option value="Ladakh">Ladakh</option>
+        <option value="Lakshadweep">Lakshadweep</option>
+        <option value="Puducherry">Puducherry</option>
+    </select>
             <input
               type="time"
               className="w-full px-4 py-2 border rounded-lg outline-indigo-400"

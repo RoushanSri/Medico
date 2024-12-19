@@ -11,7 +11,7 @@ export function Header() {
     'Reminder: Take Vitamin D3 supplement at 10 AM.',
   ]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState<string[]>([]);
 
   const sampleData = [
     'Appointment with Dr. Nishu Gupta tomorrow at 2 PM.',

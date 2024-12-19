@@ -16,7 +16,10 @@ const doctorSchema = new mongoose.Schema({
     date: Date,
     slots: [{
       time: String,
-      isBooked: Boolean,
+      isBooked: {
+        type: Boolean,
+        default: false
+      },
       patientId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Patient'
@@ -25,4 +28,4 @@ const doctorSchema = new mongoose.Schema({
   }]
 });
 
-export default mongoose.model('Doctor', doctorSchema);
+export const Doctor = mongoose.model('Doctor', doctorSchema);

@@ -1,12 +1,13 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const userSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-    required: true,
-    unique: true
-  },
+  // userId: {
+  //   type: String,
+  //   required: true,
+  //   unique: true
+  // },
   password: {
     type: String,
     required: true
@@ -21,7 +22,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  name: {
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
     type: String,
     required: true
   },
@@ -43,4 +48,15 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-export default mongoose.model('User', userSchema);
+userSchema.methods.generateAccessToken = async function(){
+  const token = jwt.sign({ 
+    userId: this._id,
+    firstName: this.firstName
+    // role: this.role
+   },
+    process.env.JWT_SECRET,
+   { expiresIn: '1d' });
+  return token;
+}
+
+export const User = mongoose.model('User',userSchema);;
